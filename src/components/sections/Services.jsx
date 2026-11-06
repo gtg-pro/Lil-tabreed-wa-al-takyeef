@@ -8,7 +8,6 @@ import {
   Snowflake,
   ArrowLeftRight,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { services } from "@/data/services";
 import { copy } from "@/data/copy";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -36,29 +35,26 @@ export default function Services() {
           {services.map((service, index) => {
             const Icon = iconMap[service.icon] || Wrench;
             return (
-              <motion.div
+              <Card
                 key={service.id}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.35, delay: index * 0.04 }}
+                className="h-full"
+                data-aos="fade-up"
+                data-aos-delay={String((index % 3) * 80)}
               >
-                <Card className="h-full">
-                  <div className="mb-4 inline-flex rounded-md border border-border bg-background p-2.5 text-primary">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">{service.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {service.description}
-                  </p>
-                </Card>
-              </motion.div>
+                <div className="mb-4 inline-flex rounded-md border border-border bg-background p-2.5 text-primary">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <h3 className="text-lg font-semibold text-white">{service.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {service.description}
+                </p>
+              </Card>
             );
           })}
         </div>
       </div>
 
-      <div className="skew-divider skew-divider--flip mt-16 sm:mt-20" aria-hidden="true" />
+      <div className="section-rule section-rule--inverse mt-16 sm:mt-20" aria-hidden="true" />
     </section>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
 import { site } from "@/config/site";
 import { images } from "@/data/images";
@@ -13,21 +12,32 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative isolate overflow-hidden border-b border-border"
+      className="relative isolate scroll-mt-24 min-h-[78vh] overflow-hidden border-b border-border sm:min-h-[85vh]"
     >
-      <div className="frost-shimmer absolute inset-0 -z-10" aria-hidden="true" />
+      <Image
+        src={images.hero.src}
+        alt={images.hero.alt}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
 
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          className="relative z-10"
-        >
-          <h1 className="text-4xl font-semibold leading-tight tracking-tight text-primary neon-text sm:text-5xl lg:text-6xl">
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/55 to-background/20"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/80 via-background/35 to-transparent"
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 mx-auto flex min-h-[78vh] max-w-7xl items-end px-4 pb-14 pt-28 sm:min-h-[85vh] sm:px-6 sm:pb-16 lg:px-8 lg:pb-20">
+        <div className="max-w-xl" data-aos="fade-up">
+          <h1 className="text-4xl font-semibold leading-tight tracking-tight text-primary sm:text-5xl lg:text-6xl">
             {site.name}
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-muted sm:text-xl">
+          <p className="mt-4 max-w-xl text-lg text-white/85 sm:text-xl">
             {copy.tagline}
           </p>
 
@@ -43,35 +53,16 @@ export default function Hero() {
               rel="noopener noreferrer"
               variant="secondary"
               size="lg"
+              className="border-white/25 bg-black/35 backdrop-blur-sm hover:border-primary hover:bg-black/50"
             >
               <MessageCircle className="h-4 w-4" aria-hidden="true" />
               {copy.hero.whatsapp}
             </Button>
           </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.08 }}
-          className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border shadow-[0_0_40px_rgba(225,29,46,0.18)]"
-        >
-          <Image
-            src={images.hero.src}
-            alt={images.hero.alt}
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover"
-          />
-          <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-background/50 via-transparent to-primary/10"
-            aria-hidden="true"
-          />
-        </motion.div>
+        </div>
       </div>
 
-      <div className="skew-divider" aria-hidden="true" />
+      <div className="section-rule relative z-10" aria-hidden="true" />
     </section>
   );
 }

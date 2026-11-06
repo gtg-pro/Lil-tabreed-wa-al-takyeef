@@ -6,6 +6,10 @@ const base = "https://res.cloudinary.com/dxxwzp4qs/image/upload";
 
 export const images = {
   hero: {
+    src: `${base}/v1793953673/Gemini_Generated_Image_em22wiem22wiem22_jnht2u.jpg`,
+    alt: "AC and refrigeration shop hero visual",
+  },
+  storefrontNight: {
     src: `${base}/v1793948721/WhatsApp_Image_2026-10-04_at_19.52.28_dsee5n.jpg`,
     alt: "Shop storefront at night with red neon Arabic signboard",
   },
@@ -37,7 +41,7 @@ export const images = {
 
 /** Ordered gallery set — uses every provided image */
 export const galleryImages = [
-  { ...images.hero, id: "gallery-1" },
+  { ...images.storefrontNight, id: "gallery-1" },
   { ...images.workshop, id: "gallery-2" },
   { ...images.neonCloseup, id: "gallery-3" },
   { ...images.storefrontWide, id: "gallery-4" },
