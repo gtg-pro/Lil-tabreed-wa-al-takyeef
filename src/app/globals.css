@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --surface: #141414;
+  --border: #262626;
+  --primary: #e11d2e;
+  --primary-hover: #b91523;
+  --text: #ffffff;
+  --muted: #a3a3a3;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-poppins);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 40%, transparent);
+  color: var(--text);
+}
+
+.neon-text {
+  text-shadow:
+    0 0 8px rgba(225, 29, 46, 0.55),
+    0 0 22px rgba(225, 29, 46, 0.35);
+}
+
+.neon-glow {
+  box-shadow:
+    0 0 12px rgba(225, 29, 46, 0.45),
+    0 0 28px rgba(225, 29, 46, 0.25);
+}
+
+.frost-shimmer {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(186, 230, 253, 0.08), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(225, 29, 46, 0.12), transparent 50%),
+    linear-gradient(135deg, #0a0a0a 0%, #121212 45%, #0a0a0a 100%);
+  overflow: hidden;
+}
+
+.frost-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: -40% -20%;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(186, 230, 253, 0.06) 48%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(186, 230, 253, 0.05) 52%,
+    transparent 65%
+  );
+  animation: frost-sweep 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes frost-sweep {
+  0%,
+  100% {
+    transform: translateX(-12%) translateY(4%);
+  }
+  50% {
+    transform: translateX(12%) translateY(-4%);
+  }
+}
+
+.skew-divider {
+  position: relative;
+  height: 2.5rem;
+  background: var(--primary);
+  clip-path: polygon(0 40%, 100% 0, 100% 60%, 0 100%);
+  opacity: 0.95;
+}
+
+.skew-divider--flip {
+  clip-path: polygon(0 0, 100% 40%, 100% 100%, 0 60%);
+  background: linear-gradient(90deg, var(--primary), #7f0f18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .frost-shimmer::after {
+    animation: none;
+  }
+}
