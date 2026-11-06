@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import { site } from "@/config/site";
+import AosInit from "@/components/AosInit";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -29,7 +30,13 @@ export const metadata = {
     description: site.description,
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
@@ -37,6 +44,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr" className={poppins.variable}>
       <body className="min-h-screen bg-background font-sans antialiased">
+        <AosInit />
         {children}
       </body>
     </html>

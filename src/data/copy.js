@@ -31,7 +31,6 @@ export const copy = {
     phone: "Phone",
     whatsapp: "WhatsApp",
     address: "Address",
-    hours: "Working hours",
     mapTitle: "Shop location on Google Maps",
   },
   footer: {

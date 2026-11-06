@@ -9,40 +9,51 @@ import { getTelHref } from "@/lib/whatsapp";
 import Button from "@/components/ui/Button";
 import MobileMenu from "@/components/layout/MobileMenu";
 
+const NAV_OFFSET = 88;
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  window.history.replaceState(null, "", `#${id}`);
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState("home");
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+
+      let current = navigation[0]?.id ?? "home";
+      for (const item of navigation) {
+        const el = document.getElementById(item.id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top - NAV_OFFSET <= 1) {
+          current = item.id;
+        }
+      }
+      setActiveId(current);
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
-  useEffect(() => {
-    const sections = navigation
-      .map((item) => document.getElementById(item.id))
-      .filter(Boolean);
-
-    if (!sections.length) return undefined;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target?.id) {
-          setActiveId(visible[0].target.id);
-        }
-      },
-      { rootMargin: "-40% 0px -45% 0px", threshold: [0.1, 0.35, 0.6] }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+  function handleNavClick(event, item) {
+    event.preventDefault();
+    setActiveId(item.id);
+    scrollToSection(item.id);
+  }
 
   return (
     <>
@@ -56,7 +67,8 @@ export default function Navbar() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-[4.25rem] sm:px-6 lg:px-8">
           <a
             href="#home"
-            className="truncate text-lg font-semibold tracking-tight text-primary neon-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:text-xl"
+            onClick={(event) => handleNavClick(event, navigation[0])}
+            className="truncate text-lg font-semibold tracking-tight text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:text-xl"
             aria-label={`${site.name} home`}
           >
             {site.name}
@@ -69,6 +81,7 @@ export default function Navbar() {
                 <a
                   key={item.id}
                   href={item.href}
+                  onClick={(event) => handleNavClick(event, item)}
                   className={`rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
                     isActive
                       ? "text-primary"
@@ -108,7 +121,12 @@ export default function Navbar() {
         </div>
       </header>
 
-      <MobileMenu open={open} onClose={() => setOpen(false)} activeId={activeId} />
+      <MobileMenu
+        open={open}
+        onClose={() => setOpen(false)}
+        activeId={activeId}
+        onNavigate={handleNavClick}
+      />
     </>
   );
 }

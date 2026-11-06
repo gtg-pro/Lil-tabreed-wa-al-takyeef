@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
@@ -35,63 +36,41 @@ body {
   color: var(--text);
 }
 
-.neon-text {
-  text-shadow:
-    0 0 8px rgba(225, 29, 46, 0.55),
-    0 0 22px rgba(225, 29, 46, 0.35);
-}
-
-.neon-glow {
-  box-shadow:
-    0 0 12px rgba(225, 29, 46, 0.45),
-    0 0 28px rgba(225, 29, 46, 0.25);
-}
-
-.frost-shimmer {
+.hero-atmosphere {
   background:
-    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(186, 230, 253, 0.08), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(225, 29, 46, 0.12), transparent 50%),
-    linear-gradient(135deg, #0a0a0a 0%, #121212 45%, #0a0a0a 100%);
-  overflow: hidden;
+    radial-gradient(ellipse 70% 55% at 12% 18%, rgba(225, 29, 46, 0.16), transparent 58%),
+    radial-gradient(ellipse 55% 45% at 88% 8%, rgba(186, 230, 253, 0.06), transparent 52%),
+    linear-gradient(160deg, #0a0a0a 0%, #111111 48%, #0a0a0a 100%);
 }
 
-.frost-shimmer::after {
-  content: "";
-  position: absolute;
-  inset: -40% -20%;
+.section-rule {
+  height: 1px;
+  width: 100%;
   background: linear-gradient(
-    115deg,
-    transparent 35%,
-    rgba(186, 230, 253, 0.06) 48%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(186, 230, 253, 0.05) 52%,
-    transparent 65%
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--primary) 75%, transparent) 50%,
+    transparent 100%
   );
-  animation: frost-sweep 8s ease-in-out infinite;
-  pointer-events: none;
 }
 
-@keyframes frost-sweep {
-  0%,
-  100% {
-    transform: translateX(-12%) translateY(4%);
-  }
-  50% {
-    transform: translateX(12%) translateY(-4%);
-  }
+.section-rule--inverse {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--border) 100%, transparent) 20%,
+    color-mix(in srgb, var(--primary) 55%, transparent) 50%,
+    color-mix(in srgb, var(--border) 100%, transparent) 80%,
+    transparent 100%
+  );
 }
 
-.skew-divider {
-  position: relative;
-  height: 2.5rem;
-  background: var(--primary);
-  clip-path: polygon(0 40%, 100% 0, 100% 60%, 0 100%);
-  opacity: 0.95;
-}
-
-.skew-divider--flip {
-  clip-path: polygon(0 0, 100% 40%, 100% 100%, 0 60%);
-  background: linear-gradient(90deg, var(--primary), #7f0f18);
+/* Keep content visible until AOS initializes (avoids blank sections on slow/network loads) */
+html:not([data-aos-enabled]) [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  pointer-events: auto !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -99,7 +78,9 @@ body {
     scroll-behavior: auto;
   }
 
-  .frost-shimmer::after {
-    animation: none;
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

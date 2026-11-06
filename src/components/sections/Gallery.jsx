@@ -25,6 +25,8 @@ export default function Gallery() {
               type="button"
               onClick={() => setActive(image)}
               aria-label={`${copy.gallery.openImage}: ${image.alt}`}
+              data-aos="zoom-in"
+              data-aos-delay={String((index % 3) * 70)}
               className={`group relative aspect-square overflow-hidden rounded-lg border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
                 index === 0 ? "col-span-2 aspect-[16/10] md:col-span-2" : ""
               }`}
@@ -47,7 +49,7 @@ export default function Gallery() {
       </div>
 
       <Lightbox image={active} onClose={() => setActive(null)} />
-      <div className="skew-divider skew-divider--flip mt-16 sm:mt-20" aria-hidden="true" />
+      <div className="section-rule section-rule--inverse mt-16 sm:mt-20" aria-hidden="true" />
     </section>
   );
 }

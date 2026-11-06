@@ -26,7 +26,6 @@ function LocalBusinessJsonLd() {
       latitude: site.coordinates.lat,
       longitude: site.coordinates.lng,
     },
-    openingHours: site.hours,
     url: "https://example.com",
   };
 
