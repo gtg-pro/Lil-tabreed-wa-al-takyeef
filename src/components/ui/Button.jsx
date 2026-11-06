@@ -2,7 +2,7 @@
 
 const variants = {
   primary:
-    "bg-primary text-white neon-glow hover:bg-primary-hover focus-visible:outline-primary",
+    "bg-primary text-white shadow-sm hover:bg-primary-hover focus-visible:outline-primary",
   secondary:
     "border border-border bg-surface text-white hover:border-primary hover:text-primary focus-visible:outline-primary",
   ghost:

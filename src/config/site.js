@@ -2,24 +2,20 @@
  * ============================================================
  * REPLACE THESE PLACEHOLDERS before going live.
  * This is the ONLY file that holds business contact details.
- * Do not hardcode name/phone/WhatsApp/address/hours elsewhere.
+ * Do not hardcode name/phone/WhatsApp/address elsewhere.
  * ============================================================
  */
 export const site = {
   // REPLACE: Brand name (Arabic signboard text)
   name: "للتبريد والتكييف",
 
-  // REPLACE: Display phone number (with spaces/dashes as you prefer)
-  phone: "[PHONE_NUMBER]",
+  // Same number used for Call Now (hero) and Phone / WhatsApp links site-wide
+  phone: "0580179212",
 
-  // REPLACE: WhatsApp number in international format, digits only (e.g. 9665XXXXXXXX)
-  whatsapp: "[WHATSAPP_NUMBER]",
+  // Same as phone — wa.me normalizes local 05… to 9665… in getWhatsAppUrl
+  whatsapp: "0580179212",
 
-  // REPLACE: Full street address in Riyadh
-  address: "[STREET_ADDRESS], Riyadh, Saudi Arabia",
-
-  // REPLACE: Working hours text
-  hours: "[WORKING_HOURS]",
+  address: "Riyadh, Saudi Arabia",
 
   // Map pin (given)
   coordinates: {

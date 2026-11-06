@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr] lg:px-8">
         <div>
-          <p className="text-xl font-semibold text-primary neon-text">{site.name}</p>
+          <p className="text-xl font-semibold text-primary">{site.name}</p>
           <p className="mt-3 max-w-sm text-sm text-muted">{site.description}</p>
         </div>
 

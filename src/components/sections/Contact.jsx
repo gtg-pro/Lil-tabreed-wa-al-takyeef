@@ -1,4 +1,4 @@
-import { Phone, MessageCircle, MapPin, Clock } from "lucide-react";
+import { Phone, MessageCircle, MapPin } from "lucide-react";
 import { site } from "@/config/site";
 import { copy } from "@/data/copy";
 import { getTelHref, getWhatsAppUrl } from "@/lib/whatsapp";
@@ -22,7 +22,7 @@ export default function Contact() {
       id: "whatsapp",
       icon: MessageCircle,
       label: copy.contact.whatsapp,
-      value: site.whatsapp,
+      value: site.phone,
       href: getWhatsAppUrl("Hello, I would like to get in touch."),
       external: true,
     },
@@ -33,14 +33,6 @@ export default function Contact() {
       value: site.address,
       href: `https://www.google.com/maps?q=${lat},${lng}`,
       external: true,
-    },
-    {
-      id: "hours",
-      icon: Clock,
-      label: copy.contact.hours,
-      value: site.hours,
-      href: null,
-      external: false,
     },
   ];
 
@@ -54,7 +46,7 @@ export default function Contact() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="grid gap-4 sm:grid-cols-2">
-            {items.map((item) => {
+            {items.map((item, index) => {
               const Icon = item.icon;
               const content = (
                 <>
@@ -68,30 +60,28 @@ export default function Contact() {
                 </>
               );
 
-              if (item.href) {
-                return (
-                  <Card
-                    key={item.id}
-                    as="a"
-                    href={item.href}
-                    target={item.external ? "_blank" : undefined}
-                    rel={item.external ? "noopener noreferrer" : undefined}
-                    className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                  >
-                    {content}
-                  </Card>
-                );
-              }
-
               return (
-                <Card key={item.id}>
+                <Card
+                  key={item.id}
+                  as="a"
+                  href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
+                  className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  data-aos="fade-up"
+                  data-aos-delay={String((index % 2) * 80)}
+                >
                   {content}
                 </Card>
               );
             })}
           </div>
 
-          <div className="overflow-hidden rounded-lg border border-border bg-background">
+          <div
+            className="overflow-hidden rounded-lg border border-border bg-background"
+            data-aos="fade-left"
+            data-aos-delay="100"
+          >
             <iframe
               title={copy.contact.mapTitle}
               src={mapSrc}
